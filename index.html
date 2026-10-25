@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield – Cybersecurity Awareness & Protection Portal</title>
+  <meta name="description" content="A modern, interactive cybersecurity awareness portal and defense suite designed for college students and everyday internet users.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+
+  <!-- Dynamic Cyber Background Canvas -->
+  <canvas id="cyber-canvas"></canvas>
+  <div class="cyber-grid-overlay"></div>
+  <div class="scanlines-overlay"></div>
+
+  <!-- Website Viewport Wrapper (Enables Device Simulation Mode in Editor) -->
+  <div id="website-viewport-wrapper">
+
+  <!-- ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== -->
+  <header class="navbar">
+    <div class="container nav-container">
+      
+      <!-- Custom CyberShield Brand Logo (Trigger 1 for Hidden 5-Click Admin Mode) -->
+      <a href="#home" class="brand-logo-trigger" title="CyberShield Portal (Click to Return Home)">
+        <div class="logo-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L3 7V12C3 17.5 6.8 22.7 12 24C17.2 22.7 21 17.5 21 12V7L12 2Z" fill="url(#navShieldGrad)" stroke="#ffd700" stroke-width="1.7"/>
+            <path d="M12 8V16M8 12H16" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="navShieldGrad" x1="3" y1="2" x2="21" y2="24" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ffd700" stop-opacity="0.45"/>
+                <stop offset="1" stop-color="#f59e0b" stop-opacity="0.15"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="logo-text-wrap">
+          <span class="logo-title" id="brand-title-text">CYBER<span style="color: #ffd700;">SHIELD</span></span>
+          <span class="logo-tagline" style="color: #f59e0b;">Awareness & Defense</span>
+        </div>
+      </a>
+
+      <!-- Desktop & Mobile Navigation Links -->
+      <nav>
+        <ul class="nav-menu">
+          <!-- Home Nav Item (Trigger 2 for Hidden 5-Click Admin Mode) -->
+          <li><a href="#home" class="nav-link active" id="nav-home-link">Home</a></li>
+          <li><a href="#importance" class="nav-link">Why It Matters</a></li>
+          <li><a href="#awareness" class="nav-link">Threat Awareness</a></li>
+          <li><a href="#pwd-checker" class="nav-link">Password Security</a></li>
+          <li><a href="#phishing-sim" class="nav-link">Phishing Lab</a></li>
+          <li><a href="#quiz" class="nav-link">Cyber Quiz</a></li>
+          <li><a href="#dashboard" class="nav-link">Security SOC</a></li>
+          <li><a href="#resources" class="nav-link">Resources</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- System Status Indicator & Mobile Toggle -->
+      <div class="nav-actions">
+        <div class="system-status-indicator" title="Threat monitoring telemetry is running">
+          <span class="status-dot"></span>
+          <span>DEFENSE ACTIVE</span>
+        </div>
+        <button class="mobile-nav-toggle" aria-label="Toggle Navigation Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         1. HOMEPAGE / HERO SECTION
+         ========================================================================== -->
+    <section id="home" class="hero-section">
+      <div class="container hero-grid">
+        
+        <div class="hero-content">
+          <div class="section-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            Next-Gen Cybersecurity Initiative
+          </div>
+          
+          <h1 class="hero-headline" id="hero-title-text">
+            Secure Your <br>
+            <span class="text-gradient">Digital World.</span>
+          </h1>
+          
+          <p class="hero-subtext" id="hero-subtitle-text">
+            Empowering students and everyday internet users with proactive cyber awareness, 
+            interactive threat simulation labs, and client-side cryptographic defense tools.
+          </p>
+          
+          <div class="hero-cta-group">
+            <a href="#pwd-checker" class="btn btn-primary" id="hero-cta-tools">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              Explore Security Tools
+            </a>
+            <a href="#awareness" class="btn btn-secondary" id="hero-cta-safety">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              Learn Cyber Safety
+            </a>
+          </div>
+
+          <div class="hero-security-highlights">
+            <div class="highlight-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>100% In-Browser Privacy</span>
+            </div>
+            <div class="highlight-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Zero Credential Transmission</span>
+            </div>
+            <div class="highlight-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Interactive Simulations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Animated Cybersecurity Shield Graphic -->
+        <div class="hero-visual">
+          <div class="shield-container">
+            <div class="orbiting-ring ring-outer"></div>
+            <div class="orbiting-ring ring-mid"></div>
+            <div class="orbiting-ring ring-inner"></div>
+
+            <!-- Floating High-Tech Tags -->
+            <div class="floating-tag tag-1">
+              <span class="status-dot"></span>
+              <span>2FA Protocol Enforced</span>
+            </div>
+            <div class="floating-tag tag-2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line></svg>
+              <span>Phishing Shield Active</span>
+            </div>
+            <div class="floating-tag tag-3">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect></svg>
+              <span>SHA-256 Entropy Guard</span>
+            </div>
+
+            <!-- Center Futuristic Shield -->
+            <div class="cyber-shield-badge">
+              <svg width="170" height="200" viewBox="0 0 170 200" fill="none">
+                <defs>
+                  <linearGradient id="shieldGrad" x1="0" y1="0" x2="170" y2="200" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#ffd700" stop-opacity="0.45"/>
+                    <stop offset="0.5" stop-color="#140f06" stop-opacity="0.9"/>
+                    <stop offset="1" stop-color="#f59e0b" stop-opacity="0.3"/>
+                  </linearGradient>
+                </defs>
+                <path class="shield-svg-path" d="M85 10L15 45V95C15 145 45 185 85 195C125 185 155 145 155 95V45L85 10Z" stroke="#ffd700" stroke-width="2.5"/>
+                <!-- Internal Circuit Mesh -->
+                <path d="M85 30V85M85 85H40M85 85H130M85 85V155M40 85V115M130 85V115" stroke="#ffd700" stroke-width="1.8" stroke-dasharray="3 3"/>
+                <circle cx="85" cy="85" r="7" fill="#ffd700"/>
+                <circle cx="40" cy="115" r="4" fill="#f59e0b"/>
+                <circle cx="130" cy="115" r="4" fill="#f59e0b"/>
+                <!-- Glowing Lock Core -->
+                <rect x="75" y="105" width="20" height="16" rx="3" fill="#080603" stroke="#ffd700" stroke-width="1.8"/>
+                <path d="M80 105V97C80 94.2386 82.2386 92 85 92C87.7614 92 90 94.2386 90 97V105" stroke="#ffd700" stroke-width="1.8"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         STATISTICS SECTION (CLEARLY LABELED DEMONSTRATION DATA)
+         ========================================================================== -->
+    <section id="stats" class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          
+          <div class="cyber-card stat-card">
+            <div class="stat-icon">📧</div>
+            <div class="stat-number" data-target="3.4" data-suffix="B">3.4B</div>
+            <div class="stat-label">Phishing Emails Sent Daily</div>
+            <span class="stat-demo-flag">*Demonstration Industry Data</span>
+          </div>
+
+          <div class="cyber-card stat-card">
+            <div class="stat-icon">👤</div>
+            <div class="stat-number" data-target="82" data-suffix="%">82%</div>
+            <div class="stat-label">Breaches Involving Human Error</div>
+            <span class="stat-demo-flag">*Demonstration Industry Data</span>
+          </div>
+
+          <div class="cyber-card stat-card">
+            <div class="stat-icon">⏱️</div>
+            <div class="stat-number" data-target="14" data-suffix="s">14s</div>
+            <div class="stat-label">Ransomware Attack Frequency</div>
+            <span class="stat-demo-flag">*Demonstration Industry Data</span>
+          </div>
+
+          <div class="cyber-card stat-card">
+            <div class="stat-icon">🎓</div>
+            <div class="stat-number" data-target="43" data-suffix="%">43%</div>
+            <div class="stat-label">Attacks Targeting Higher Ed & Users</div>
+            <span class="stat-demo-flag">*Demonstration Industry Data</span>
+          </div>
+
+        </div>
+        <p class="stats-disclaimer">
+          Note: Sample figures above represent educational demonstration telemetry compiled from global threat reports (e.g., CISA, IC3, Verizon DBIR) for training awareness.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         WHY CYBERSECURITY MATTERS: STUDENTS & EVERYDAY USERS
+         ========================================================================== -->
+    <section id="importance" class="section">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-badge badge-green">Essential Defense Knowledge</div>
+          <h2 class="section-title">Why Digital Safety Is Crucial</h2>
+          <p class="section-description">
+            Cyber threats are no longer confined to military servers and Fortune 500 banks. 
+            Students, faculty, and daily internet users have become prime targets for automated threat actors.
+          </p>
+        </div>
+
+        <div class="importance-grid">
+          
+          <!-- Importance for Students -->
+          <div class="cyber-card importance-card for-students">
+            <div class="card-header-with-badge">
+              <h3 style="font-size: 1.4rem;">Higher Education & Students</h3>
+              <span class="role-badge students">Campus Vulnerabilities</span>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              Colleges and universities operate open, collaborative networks where thousands of personal devices connect simultaneously. 
+              Students often balance academic stress, loan applications, and job searches, making them uniquely susceptible to targeted exploits:
+            </p>
+            <ul class="threat-points-list">
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Tuition & Financial Aid Phishing:</strong> Spoofed bursar notices demanding urgent bank verification for fake fee refunds or scholarship payments.</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Open Campus Wi-Fi Sniffing:</strong> Connecting without encryption exposes learning management portal credentials and research files.</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Credential Reuse Risk:</strong> Using identical passwords across college portals, social accounts, and gaming platforms creates cascading breach risks.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Importance for Everyday Internet Users -->
+          <div class="cyber-card importance-card">
+            <div class="card-header-with-badge">
+              <h3 style="font-size: 1.4rem;">Everyday Internet Citizens</h3>
+              <span class="role-badge everyday">Consumer Protection</span>
+            </div>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              From mobile banking and social media to smart home IoT devices and cloud storage, modern life is fundamentally digital. 
+              A single compromised account can trigger catastrophic financial loss or permanent identity theft:
+            </p>
+            <ul class="threat-points-list">
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Synthetic Identity Theft:</strong> Criminals harvest Social Security numbers and date of birth to open fraudulent lines of credit and drain savings.</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Social Engineering & Impersonation:</strong> Scammers clone voices or spoof family member profiles on messaging apps requesting urgent bail or gift cards.</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Ransomware & Cloud Extortion:</strong> Personal family photos, tax records, and private documents encrypted until high cryptocurrency ransoms are paid.</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION A: CYBERSECURITY AWARENESS
+         ========================================================================== -->
+    <section id="awareness" class="section">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-badge">Threat Taxonomy</div>
+          <h2 class="section-title">Core Cyber Threat Vectors</h2>
+          <p class="section-description">
+            Understand the anatomy, psychological triggers, and technical mechanisms behind the most pervasive digital attack vectors.
+          </p>
+        </div>
+
+        <div class="threat-cards-grid">
+          
+          <!-- 1. Phishing -->
+          <div class="cyber-card threat-card">
+            <div class="threat-card-top">
+              <div class="threat-card-meta">
+                <div class="threat-type-icon">🎣</div>
+                <span class="threat-severity-tag severity-critical">Severity: Critical</span>
+              </div>
+              <h3 class="threat-card-title">Phishing & Spear-Phishing</h3>
+              <p class="threat-card-desc">
+                Fraudulent communications designed to masquerade as reputable entities (banks, colleges, courier services) to harvest sensitive credentials.
+              </p>
+              
+              <div class="threat-details-box">
+                <div class="detail-heading">⚠️ Warning Signs:</div>
+                <ul class="detail-list">
+                  <li>Artificial deadlines & panic ("Act within 24 hours")</li>
+                  <li>Mismatched domain suffixes (.top, .xyz, typosquatting)</li>
+                  <li>Requests for sensitive PINs or passwords via email</li>
+                </ul>
+              </div>
+            </div>
+            <div class="threat-card-footer">
+              <span style="font-size: 0.82rem; color: var(--accent-green);">🛡️ Defense: Domain verification & MFA</span>
+            </div>
+          </div>
+
+          <!-- 2. Malware -->
+          <div class="cyber-card threat-card">
+            <div class="threat-card-top">
+              <div class="threat-card-meta">
+                <div class="threat-type-icon">🦠</div>
+                <span class="threat-severity-tag severity-high">Severity: High</span>
+              </div>
+              <h3 class="threat-card-title">Malware & Keyloggers</h3>
+              <p class="threat-card-desc">
+                Malicious software including Trojans, rootkits, and keystroke loggers that covertly exfiltrate personal data, webcam feeds, and login sessions.
+              </p>
+              
+              <div class="threat-details-box">
+                <div class="detail-heading">⚠️ Warning Signs:</div>
+                <ul class="detail-list">
+                  <li>Unusual computer slowdowns & high background CPU usage</li>
+                  <li>Unexpected pop-ups and redirected search engine results</li>
+                  <li>Double file extensions (e.g., invoice.pdf.exe)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="threat-card-footer">
+              <span style="font-size: 0.82rem; color: var(--accent-green);">🛡️ Defense: Endpoint EDR & verified downloads</span>
+            </div>
+          </div>
+
+          <!-- 3. Ransomware -->
+          <div class="cyber-card threat-card">
+            <div class="threat-card-top">
+              <div class="threat-card-meta">
+                <div class="threat-type-icon">🔒</div>
+                <span class="threat-severity-tag severity-critical">Severity: Severe</span>
+              </div>
+              <h3 class="threat-card-title">Ransomware Extortion</h3>
+              <p class="threat-card-desc">
+                Cryptoviral extortion where victim files and databases are encrypted with military-grade ciphers until a cryptocurrency ransom is transferred.
+              </p>
+              
+              <div class="threat-details-box">
+                <div class="detail-heading">⚠️ Warning Signs:</div>
+                <ul class="detail-list">
+                  <li>Files suddenly inaccessible with appended random extensions</li>
+                  <li>Desktop wallpaper replaced with extortion countdown instructions</li>
+                  <li>Disabled Windows Volume Shadow Copies & recovery tools</li>
+                </ul>
+              </div>
+            </div>
+            <div class="threat-card-footer">
+              <span style="font-size: 0.82rem; color: var(--accent-green);">🛡️ Defense: Immutable 3-2-1 offline backups</span>
+            </div>
+          </div>
+
+          <!-- 4. Password Attacks -->
+          <div class="cyber-card threat-card">
+            <div class="threat-card-top">
+              <div class="threat-card-meta">
+                <div class="threat-type-icon">🔑</div>
+                <span class="threat-severity-tag severity-high">Severity: High</span>
+              </div>
+              <h3 class="threat-card-title">Credential Stuffing & Brute Force</h3>
+              <p class="threat-card-desc">
+                Automated botnets testing millions of username/password combinations leaked in past historical data breaches across multiple web services.
+              </p>
+              
+              <div class="threat-details-box">
+                <div class="detail-heading">⚠️ Warning Signs:</div>
+                <ul class="detail-list">
+                  <li>Unexpected 2FA security prompt notifications on your phone</li>
+                  <li>Account lockout alerts due to excessive failed attempts</li>
+                  <li>Unrecognized device logins in account security activity</li>
+                </ul>
+              </div>
+            </div>
+            <div class="threat-card-footer">
+              <span style="font-size: 0.82rem; color: var(--accent-green);">🛡️ Defense: Unique passphrases & password managers</span>
+            </div>
+          </div>
+
+          <!-- 5. Social Engineering -->
+          <div class="cyber-card threat-card">
+            <div class="threat-card-top">
+              <div class="threat-card-meta">
+                <div class="threat-type-icon">🎭</div>
+                <span class="threat-severity-tag severity-critical">Severity: Critical</span>
+              </div>
+              <h3 class="threat-card-title">Social Engineering & Pretexting</h3>
+              <p class="threat-card-desc">
+                Manipulating human psychology rather than software vulnerabilities to trick individuals into divulging security badges, OTPs, or financial wires.
+              </p>
+              
+              <div class="threat-details-box">
+                <div class="detail-heading">⚠️ Warning Signs:</div>
+                <ul class="detail-list">
+                  <li>Callers posing as IT demanding remote desktop access</li>
+                  <li>Urgent requests to bypass standard institutional approval rules</li>
+                  <li>Demands for untraceable gift cards or peer-to-peer transfers</li>
+                </ul>
+              </div>
+            </div>
+            <div class="threat-card-footer">
+              <span style="font-size: 0.82rem; color: var(--accent-green);">🛡️ Defense: Out-of-band verification via phone/in-person</span>
+            </div>
+          </div>
+
+          <!-- 6. Identity Theft -->
+          <div class="cyber-card threat-card">
+            <div class="threat-card-top">
+              <div class="threat-card-meta">
+                <div class="threat-type-icon">🪪</div>
+                <span class="threat-severity-tag severity-high">Severity: Severe</span>
+              </div>
+              <h3 class="threat-card-title">Identity Theft & Data Breaches</h3>
+              <p class="threat-card-desc">
+                Acquiring personally identifiable information (PII) to assume another individual's persona, obtain fraudulent loans, or commit tax fraud.
+              </p>
+              
+              <div class="threat-details-box">
+                <div class="detail-heading">⚠️ Warning Signs:</div>
+                <ul class="detail-list">
+                  <li>Unexplained hard inquiries on your credit monitoring report</li>
+                  <li>Bills or statements arriving for credit cards you never opened</li>
+                  <li>IRS rejections stating duplicate tax returns already filed</li>
+                </ul>
+              </div>
+            </div>
+            <div class="threat-card-footer">
+              <span style="font-size: 0.82rem; color: var(--accent-green);">🛡️ Defense: Credit bureau freeze & breach monitoring</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION B: PASSWORD SECURITY CHECKER & GENERATOR
+         ========================================================================== -->
+    <section id="pwd-checker" class="section">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-badge badge-green">Cryptographic Audit Tool</div>
+          <h2 class="section-title">Password Security Checker</h2>
+          <p class="section-description">
+            Evaluate your password's entropy and resilience against modern GPU brute-force attacks in real time.
+          </p>
+        </div>
+
+        <div class="password-checker-layout">
+          
+          <!-- Password Input & Evaluation Card -->
+          <div class="cyber-card password-tool-card">
+            
+            <div class="privacy-notice-badge">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <span><strong>100% In-Browser Privacy:</strong> Evaluated strictly in client-side memory. Your password is NEVER stored, transmitted, or logged.</span>
+            </div>
+
+            <div class="password-input-group">
+              <div class="input-label-row">
+                <label for="pwd-input" class="input-label">Enter Sample Password to Test</label>
+                <span id="entropy-value" class="font-mono text-cyan" style="font-size: 0.85rem;">0 bits</span>
+              </div>
+              <div class="input-wrapper">
+                <input type="password" id="pwd-input" class="cyber-input" placeholder="e.g. Shield#Vault98!Secure" autocomplete="off" spellcheck="false">
+                <button type="button" id="toggle-pwd-vis" class="toggle-pwd-btn" title="Toggle Visibility" aria-label="Toggle password visibility">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Strength Meter -->
+            <div class="strength-meter-box">
+              <div class="meter-header">
+                <span class="meter-title">Calculated Strength:</span>
+                <span id="strength-meter-text" class="meter-score-text">ENTER PASSWORD</span>
+              </div>
+              <div class="meter-track">
+                <div id="strength-meter-fill" class="meter-fill"></div>
+              </div>
+
+              <!-- Estimated Brute-Force Crack Time -->
+              <div class="crack-time-display">
+                <span class="crack-time-label">Estimated GPU Cluster Crack Time:</span>
+                <span id="crack-time-value" class="crack-time-val">—</span>
+              </div>
+            </div>
+
+            <!-- Live Checklist -->
+            <div class="checklist-grid">
+              <div class="check-item" id="crit-length">
+                <span class="crit-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg>
+                </span>
+                <span>Minimum 12 Characters</span>
+              </div>
+              <div class="check-item" id="crit-upper">
+                <span class="crit-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg>
+                </span>
+                <span>Uppercase Letters (A-Z)</span>
+              </div>
+              <div class="check-item" id="crit-lower">
+                <span class="crit-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg>
+                </span>
+                <span>Lowercase Letters (a-z)</span>
+              </div>
+              <div class="check-item" id="crit-number">
+                <span class="crit-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg>
+                </span>
+                <span>Numeric Digits (0-9)</span>
+              </div>
+              <div class="check-item" id="crit-symbol">
+                <span class="crit-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg>
+                </span>
+                <span>Special Symbols (!@#$%)</span>
+              </div>
+              <div class="check-item" id="crit-unique">
+                <span class="crit-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg>
+                </span>
+                <span>No Dictionary / Repetitions</span>
+              </div>
+            </div>
+
+            <!-- Dynamic Suggestions Box -->
+            <div id="pwd-suggestions" style="background: rgba(10, 15, 29, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-sm); padding: 1rem;">
+              <span style="color: var(--text-muted); font-size: 0.85rem;">Evaluation feedback will appear here as you type.</span>
+            </div>
+
+          </div>
+
+          <!-- Built-in High-Entropy Password Generator -->
+          <div class="cyber-card generator-card">
+            <div>
+              <div class="section-badge badge-green" style="margin-bottom: 0.75rem;">Entropy Generator</div>
+              <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem;">Generate High-Security Passphrase</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                Create cryptographically randomized credentials resistant to dictionary attacks and rainbow tables.
+              </p>
+
+              <div class="gen-options">
+                <div class="gen-length-slider">
+                  <div class="slider-row">
+                    <span class="font-subheading" style="font-size: 0.9rem;">Length:</span>
+                    <span id="gen-length-val" class="font-mono text-cyan" style="font-weight: 700;">18</span>
+                  </div>
+                  <input type="range" id="gen-length-slider" class="slider-range" min="8" max="32" value="18">
+                </div>
+
+                <label class="toggle-option">
+                  <span style="font-size: 0.9rem;">Include Lowercase (a-z)</span>
+                  <input type="checkbox" id="gen-inc-lower" class="toggle-checkbox" checked>
+                </label>
+                <label class="toggle-option">
+                  <span style="font-size: 0.9rem;">Include Uppercase (A-Z)</span>
+                  <input type="checkbox" id="gen-inc-upper" class="toggle-checkbox" checked>
+                </label>
+                <label class="toggle-option">
+                  <span style="font-size: 0.9rem;">Include Numbers (0-9)</span>
+                  <input type="checkbox" id="gen-inc-numbers" class="toggle-checkbox" checked>
+                </label>
+                <label class="toggle-option">
+                  <span style="font-size: 0.9rem;">Include Special Symbols (!@#$%)</span>
+                  <input type="checkbox" id="gen-inc-symbols" class="toggle-checkbox" checked>
+                </label>
+              </div>
+
+              <button type="button" id="btn-generate-pwd" class="btn btn-secondary" style="width: 100%;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                </svg>
+                Generate New Password
+              </button>
+
+              <div class="generated-pwd-output">
+                <span id="gen-pwd-output-text" class="generated-pwd-text">Click Generate</span>
+                <button type="button" id="btn-copy-gen-pwd" class="btn-ghost btn-sm" title="Copy to clipboard" style="padding: 0.4rem 0.6rem;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <button type="button" id="btn-test-in-checker" class="btn btn-ghost btn-sm" style="margin-top: 1rem; width: 100%;">
+              Test Generated Password In Checker Above ↑
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION C: PHISHING AWARENESS SIMULATOR
+         ========================================================================== -->
+    <section id="phishing-sim" class="section">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-badge">Interactive Simulation Lab</div>
+          <h2 class="section-title">Phishing Awareness Simulator</h2>
+          <p class="section-description">
+            Inspect fictional emails, uncover subtle social engineering red flags, and test your instincts in a safe, controlled sandbox.
+          </p>
+        </div>
+
+        <div class="phishing-simulator-container">
+          
+          <!-- Scenario Selector Buttons -->
+          <div class="scenario-selector-bar" id="phishing-scenarios-bar"></div>
+
+          <!-- Email Client Mockup -->
+          <div class="email-client-mockup">
+            
+            <div class="email-client-header">
+              <div class="email-controls">
+                <span class="control-circle control-red"></span>
+                <span class="control-circle control-yellow"></span>
+                <span class="control-circle control-green"></span>
+              </div>
+              <div class="email-client-subject" id="sim-email-subject">Loading simulation...</div>
+              <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-cyan);">
+                INSPECTION SANDBOX
+              </div>
+            </div>
+
+            <!-- Email Headers -->
+            <div class="email-headers-panel">
+              <div class="header-row">
+                <span class="header-field">From:</span>
+                <span class="header-value" id="sim-email-sender">—</span>
+              </div>
+              <div class="header-row">
+                <span class="header-field">Reply-To:</span>
+                <span class="header-value" id="sim-email-replyto">—</span>
+              </div>
+              <div class="header-row">
+                <span class="header-field">Date:</span>
+                <span class="header-value" id="sim-email-date">—</span>
+              </div>
+            </div>
+
+            <!-- Email Body Content with Clickable Inspectable Clues -->
+            <div class="email-body-content" id="sim-email-body"></div>
+
+            <!-- Decision & Verdict Action Bar -->
+            <div class="simulator-verdict-bar">
+              <div style="font-size: 0.88rem; color: var(--text-secondary);">
+                <span>💡 Tip: Click highlighted dashed text to inspect clues. Ready to decide?</span>
+              </div>
+              <div class="verdict-actions">
+                <button type="button" class="btn btn-phish" id="btn-verdict-phish">
+                  🚨 Flag as Phishing Scam
+                </button>
+                <button type="button" class="btn btn-legit" id="btn-verdict-legit">
+                  ✅ Verify as Legitimate
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Detailed Explanation Feedback Box -->
+          <div class="feedback-explanation-box" id="sim-explanation-box"></div>
+
+          <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+            🛡️ Safe Sandbox Notice: All email domains and sender addresses shown are purely fictional mockups. No real phishing messages are sent or credentials collected.
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION D: CYBER SAFETY QUIZ (10 QUESTIONS)
+         ========================================================================== -->
+    <section id="quiz" class="section">
+      <div class="container quiz-container">
+        
+        <div class="section-header">
+          <div class="section-badge badge-green">Knowledge Assessment</div>
+          <h2 class="section-title">Cyber Safety Quiz</h2>
+          <p class="section-description">
+            Test your cybersecurity instincts across 10 realistic threat scenarios and earn your Cyber Defense badge.
+          </p>
+        </div>
+
+        <!-- Active Quiz Card -->
+        <div class="cyber-card quiz-card" id="quiz-active-card">
+          
+          <div class="quiz-progress-bar-wrap">
+            <div class="quiz-progress-labels">
+              <span id="quiz-current-num">Question 1 of 10</span>
+              <span class="text-cyan font-mono">Passing Score: 70%</span>
+            </div>
+            <div class="quiz-progress-track">
+              <div id="quiz-progress-fill" class="quiz-progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="quiz-question-text" id="quiz-question-text">
+            Loading question...
+          </div>
+
+          <div class="quiz-options-list" id="quiz-options-list"></div>
+
+          <div class="quiz-explanation-box" id="quiz-explanation-box"></div>
+
+          <div style="text-align: right;">
+            <button type="button" id="quiz-next-btn" class="btn btn-primary" style="display: none;">
+              Next Question ▸
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Results Card Screen -->
+        <div class="cyber-card quiz-results-card" id="quiz-results-card">
+          <div class="results-badge-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2">
+              <path d="M12 2L3 7V12C3 17.5 6.8 22.7 12 24C17.2 22.7 21 17.5 21 12V7L12 2Z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+
+          <div class="results-score-big text-gradient" id="results-score-val">0 / 10</div>
+          <div class="results-rank-title" id="results-rank-title">CYBER DEFENDER</div>
+          <p id="results-rank-desc" style="color: var(--text-secondary); max-width: 580px; margin: 0 auto 2rem auto; font-size: 1rem; line-height: 1.6;">
+            Assessment completed.
+          </p>
+
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <button type="button" id="quiz-retake-btn" class="btn btn-primary">
+              Retake Assessment
+            </button>
+            <button type="button" id="quiz-review-btn" class="btn btn-secondary">
+              Review All Questions
+            </button>
+          </div>
+
+          <div id="quiz-review-container" style="display: none; margin-top: 2.5rem;"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION E: SECURITY DASHBOARD (DEMONSTRATION SOC)
+         ========================================================================== -->
+    <section id="dashboard" class="section">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-badge">SOC Telemetry Center</div>
+          <h2 class="section-title">Live Security Operations Dashboard</h2>
+          <p class="section-description">
+            Simulated security operations center (SOC) telemetry visualizer showcasing threat vector analytics and automated mitigation.
+          </p>
+        </div>
+
+        <!-- Demonstration Notice Banner -->
+        <div class="dashboard-banner" style="margin-bottom: 2rem;">
+          <div style="display: flex; align-items: center; gap: 0.85rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-yellow)" stroke-width="2">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <div>
+              <div style="font-family: var(--font-heading); font-size: 0.95rem; color: var(--accent-yellow); font-weight: 700;">
+                SIMULATED EDUCATIONAL TELEMETRY
+              </div>
+              <div style="font-size: 0.82rem; color: var(--text-secondary);">
+                All threat stream logs, charts, and metrics are synthetic demonstrations created for collegiate cybersecurity education.
+              </div>
+            </div>
+          </div>
+          <div class="system-status-indicator">
+            <span class="status-dot"></span>
+            <span>SIMULATION ACTIVE</span>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          
+          <!-- Threat Vector Distribution Donut Chart -->
+          <div class="cyber-card col-6">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <h3 style="font-size: 1.2rem;">Global Threat Vector Distribution</h3>
+              <span class="font-mono text-cyan" style="font-size: 0.75rem;">LIVE ANALYTICS</span>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem;">
+              Hover over donut segments to isolate attack frequency percentages.
+            </p>
+            <div id="threat-donut-chart-container" class="chart-container-wrap"></div>
+          </div>
+
+          <!-- Live Simulated SOC Threat Feed Terminal -->
+          <div class="cyber-card col-6 soc-live-stream-card">
+            <div class="terminal-header">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="status-dot"></span>
+                <h3 style="font-size: 1.1rem;">Simulated Threat Stream (SOC)</h3>
+              </div>
+              <button type="button" id="soc-pause-btn" class="btn btn-ghost btn-sm" style="padding: 0.25rem 0.65rem; font-size: 0.75rem;">
+                PAUSE STREAM
+              </button>
+            </div>
+            <div class="terminal-log-window" id="soc-terminal-logs"></div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; font-family: var(--font-mono);">
+              <span>Buffer: 25 items</span>
+              <span>Filter: Automated Mitigation Enforced</span>
+            </div>
+          </div>
+
+          <!-- Personal Cyber Hygiene Checklist -->
+          <div class="cyber-card col-12">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+              <div>
+                <h3 style="font-size: 1.3rem;">Personal Cyber Hygiene Audit</h3>
+                <p style="color: var(--text-secondary); font-size: 0.88rem;">
+                  Track and verify your everyday security posture. Checklist progress is stored in your browser.
+                </p>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <span style="font-family: var(--font-subheading); font-size: 0.9rem; color: var(--text-secondary);">Your Score:</span>
+                <span id="hygiene-score-display" class="font-mono" style="font-size: 1.5rem; font-weight: 800; color: var(--accent-cyan);">0%</span>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+              <label class="toggle-option cyber-card" style="padding: 0.85rem 1rem; background: rgba(5,8,17,0.7);">
+                <span style="font-size: 0.88rem;">Multi-Factor Authentication (2FA) active on email & banking</span>
+                <input type="checkbox" class="hygiene-checkbox toggle-checkbox" data-id="h-mfa">
+              </label>
+              <label class="toggle-option cyber-card" style="padding: 0.85rem 1rem; background: rgba(5,8,17,0.7);">
+                <span style="font-size: 0.88rem;">Unique passwords used across all services (no reuse)</span>
+                <input type="checkbox" class="hygiene-checkbox toggle-checkbox" data-id="h-unique">
+              </label>
+              <label class="toggle-option cyber-card" style="padding: 0.85rem 1rem; background: rgba(5,8,17,0.7);">
+                <span style="font-size: 0.88rem;">Password manager utilized to store complex passphrases</span>
+                <input type="checkbox" class="hygiene-checkbox toggle-checkbox" data-id="h-pwdmgr">
+              </label>
+              <label class="toggle-option cyber-card" style="padding: 0.85rem 1rem; background: rgba(5,8,17,0.7);">
+                <span style="font-size: 0.88rem;">Automatic OS & browser security patches enabled</span>
+                <input type="checkbox" class="hygiene-checkbox toggle-checkbox" data-id="h-patch">
+              </label>
+              <label class="toggle-option cyber-card" style="padding: 0.85rem 1rem; background: rgba(5,8,17,0.7);">
+                <span style="font-size: 0.88rem;">Encrypted VPN used whenever connecting to public Wi-Fi</span>
+                <input type="checkbox" class="hygiene-checkbox toggle-checkbox" data-id="h-vpn">
+              </label>
+              <label class="toggle-option cyber-card" style="padding: 0.85rem 1rem; background: rgba(5,8,17,0.7);">
+                <span style="font-size: 0.88rem;">Offline or cloud immutable backups maintained regularly</span>
+                <input type="checkbox" class="hygiene-checkbox toggle-checkbox" data-id="h-backup">
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION F: RESOURCES & CONTACT
+         ========================================================================== -->
+    <section id="resources" class="section">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-badge badge-green">Educational Toolkits</div>
+          <h2 class="section-title">Security Resources & Best Practices</h2>
+          <p class="section-description">
+            Explore authoritative frameworks, cheat sheets, and official cybersecurity guides.
+          </p>
+        </div>
+
+        <div class="resources-grid">
+          
+          <div class="cyber-card resource-card">
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">CISA Shields Up</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+              Official recommendations from the Cybersecurity and Infrastructure Security Agency for safeguarding personal devices and home networks.
+            </p>
+            <a href="https://www.cisa.gov/shields-up" target="_blank" rel="noopener noreferrer" class="resource-link">
+              Visit Official Guide ↗
+            </a>
+          </div>
+
+          <div class="cyber-card resource-card">
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">OWASP Top 10 Awareness</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+              The Open Web Application Security Project's definitive standard for software security vulnerabilities and web exploitation vectors.
+            </p>
+            <a href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener noreferrer" class="resource-link">
+              Explore OWASP Principles ↗
+            </a>
+          </div>
+
+          <div class="cyber-card resource-card">
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">FTC Identity Theft Portal</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+              Comprehensive recovery plans, credit freeze instructions, and official reporting mechanisms from the Federal Trade Commission.
+            </p>
+            <a href="https://www.identitytheft.gov/" target="_blank" rel="noopener noreferrer" class="resource-link">
+              Access Recovery Checklist ↗
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" class="contact-layout">
+          
+          <div class="contact-info-panel">
+            <div class="section-badge">Get in Touch</div>
+            <h2 class="section-title" style="text-align: left; margin-bottom: 1rem;">Project Inquiry & Security Feedback</h2>
+            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+              Have questions regarding the CyberShield college demonstration project, security curriculum, or awareness modules? 
+              Reach out through our validation portal.
+            </p>
+
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <div style="font-weight: 700; color: #fff;">Department of Computer Science</div>
+                <div style="color: var(--text-secondary); font-size: 0.88rem;">Cybersecurity & Information Assurance Laboratory</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">📧</div>
+              <div>
+                <div style="font-weight: 700; color: #fff;">Project Lead Email</div>
+                <div style="color: var(--text-secondary); font-size: 0.88rem;">cybershield-portal@student-project.edu</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">🛡️</div>
+              <div>
+                <div style="font-weight: 700; color: #fff;">Academic Integrity Policy</div>
+                <div style="color: var(--text-secondary); font-size: 0.88rem;">Developed strictly for defensive education & non-malicious study.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form with Front-end Validation -->
+          <div class="cyber-card contact-form-card">
+            
+            <div class="form-demo-disclaimer">
+              ⚠️ <strong>Demonstration Mode:</strong> Front-end validation active. In accordance with project requirements, this form operates client-side only without external mail relay dependencies.
+            </div>
+
+            <form id="cyber-contact-form" novalidate>
+              <div class="form-group">
+                <label for="contact-name" class="form-label">Full Name</label>
+                <input type="text" id="contact-name" class="form-control" placeholder="e.g. Jordan Smith" required>
+                <div id="contact-name-error" class="form-validation-error">Please enter your name.</div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-email" class="form-label">Email Address</label>
+                <input type="email" id="contact-email" class="form-control" placeholder="e.g. jordan.smith@college.edu" required>
+                <div id="contact-email-error" class="form-validation-error">Please provide a valid email address.</div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-subject" class="form-label">Inquiry Category</label>
+                <select id="contact-subject" class="form-control">
+                  <option value="general">General Awareness Question</option>
+                  <option value="curriculum">Classroom / Project Presentation</option>
+                  <option value="simulation">Phishing Simulator Feedback</option>
+                  <option value="bug">Technical Bug Report</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message" class="form-label">Your Message</label>
+                <textarea id="contact-message" class="form-control" placeholder="Share your inquiry or feedback (minimum 10 characters)..." required></textarea>
+                <div id="contact-message-error" class="form-validation-error">Message must be at least 10 characters.</div>
+              </div>
+
+              <button type="submit" id="contact-submit-btn" class="btn btn-primary" style="width: 100%;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+                Transmit Verified Inquiry
+              </button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      
+      <div class="footer-top">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;">
+            <div class="logo-icon-wrap" style="width: 32px; height: 32px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2">
+                <path d="M12 2L3 7V12C3 17.5 6.8 22.7 12 24C17.2 22.7 21 17.5 21 12V7L12 2Z"/>
+              </svg>
+            </div>
+            <span class="logo-title" style="font-size: 1.15rem;">CYBER<span>SHIELD</span></span>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; max-width: 320px;">
+            A collegiate cybersecurity awareness portal dedicated to educating students and internet users against digital fraud, malware, and social engineering.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <ul class="footer-links-list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#importance">Why It Matters</a></li>
+            <li><a href="#awareness">Threat Awareness</a></li>
+            <li><a href="#pwd-checker">Password Checker</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Interactive Labs</div>
+          <ul class="footer-links-list">
+            <li><a href="#phishing-sim">Phishing Simulator</a></li>
+            <li><a href="#quiz">Cyber Safety Quiz</a></li>
+            <li><a href="#dashboard">Security Dashboard</a></li>
+            <li><a href="#resources">External Resources</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Security & Ethics</div>
+          <ul class="footer-links-list">
+            <li><a href="#pwd-checker">Client-Side Privacy</a></li>
+            <li><a href="#phishing-sim">Simulation Sandbox</a></li>
+            <li><a href="#dashboard">Synthetic Telemetry</a></li>
+            <li><a href="#contact">Contact Lab</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 CyberShield Project – Cybersecurity Awareness & Protection Portal. Academic Project Showcase.
+        </div>
+        <div style="display: flex; gap: 1.25rem; font-family: var(--font-mono); font-size: 0.8rem;">
+          <span style="color: var(--accent-green);">AES-256 GCM READY</span>
+          <span style="color: var(--accent-cyan);">CLIENT-SIDE PRIVACY ASSURED</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+  </div> <!-- /#website-viewport-wrapper -->
+
+  <!-- ==========================================================================
+       WHOLE WEBSITE STUDIO EDITOR BAR (3-CLICK TRIGGER ON LOGO)
+       Full in-place editing across the entire website without popup panels!
+       ========================================================================== -->
+  <aside id="studio-editor-bar" aria-label="Studio Editor Bar">
+    
+    <!-- Left: Status, Device Mode Toggle & In-Place Text Formatting Tools -->
+    <div class="studio-bar-left">
+      <div class="studio-status-badge">
+        <span class="status-dot"></span>
+        <span>STUDIO MODE</span>
+      </div>
+
+      <!-- Device Viewport Switcher (PC vs. Mobile) -->
+      <div class="studio-device-toggle-group">
+        <button type="button" class="studio-device-btn active" id="btn-view-pc" title="Desktop / PC View (100% Full Width)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          <span>PC VIEW</span>
+        </button>
+        <button type="button" class="studio-device-btn" id="btn-view-mobile" title="Mobile Smartphone View (Simulated Mobile Device Frame)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+          </svg>
+          <span>MOBILE VIEW</span>
+        </button>
+      </div>
+
+      <div class="studio-tools-group">
+        <button type="button" class="studio-tool-btn" id="btn-studio-bold" title="Bold Selected Text"><strong>B</strong></button>
+        <button type="button" class="studio-tool-btn" id="btn-studio-italic" title="Italicize Selected Text"><em>I</em></button>
+        <button type="button" class="studio-tool-btn" id="btn-studio-underline" title="Underline Selected Text"><u>U</u></button>
+      </div>
+
+      <select id="studio-font-select" class="studio-font-select" title="Change Headings Font">
+        <option value="'Orbitron', sans-serif">Font: Orbitron</option>
+        <option value="'Rajdhani', sans-serif">Font: Rajdhani</option>
+        <option value="'Inter', sans-serif">Font: Inter</option>
+        <option value="'JetBrains Mono', monospace">Font: JetBrains Mono</option>
+      </select>
+    </div>
+
+    <!-- Center: THEME COLOR PALETTE SWITCHER -->
+    <div class="studio-bar-center">
+      <span class="studio-theme-label">COLOR THEME:</span>
+      <div class="studio-themes-list">
+        <button type="button" class="theme-color-pill active" data-theme="gold" title="Black & Radiant Gold (Default)">
+          <span class="theme-dot" style="background: #ffd700;"></span>
+          <span>GOLD & BLACK</span>
+        </button>
+        <button type="button" class="theme-color-pill" data-theme="matrix" title="Matrix Phosphor Terminal Green">
+          <span class="theme-dot" style="background: #00ff66;"></span>
+          <span>MATRIX</span>
+        </button>
+        <button type="button" class="theme-color-pill" data-theme="cobalt" title="Electric Cobalt Defense Blue">
+          <span class="theme-dot" style="background: #38bdf8;"></span>
+          <span>COBALT</span>
+        </button>
+        <button type="button" class="theme-color-pill" data-theme="crimson" title="Crimson Alert / Hacker Red">
+          <span class="theme-dot" style="background: #ff0055;"></span>
+          <span>CRIMSON</span>
+        </button>
+        <button type="button" class="theme-color-pill" data-theme="synthwave" title="Synthwave Magenta & Violet">
+          <span class="theme-dot" style="background: #ff007f;"></span>
+          <span>VIOLET</span>
+        </button>
+        <button type="button" class="theme-color-pill" data-theme="cyber" title="Cyber Cyan & Neon Green">
+          <span class="theme-dot" style="background: #00f0ff;"></span>
+          <span>CYAN/NEON</span>
+        </button>
+
+        <div class="custom-color-picker-wrap" title="Choose Custom Accent Color">
+          <input type="color" id="studio-custom-color" class="custom-color-input" value="#ffd700">
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Card Creator, Save & Exit Actions -->
+    <div class="studio-bar-right">
+      <button type="button" class="studio-action-btn btn-studio-add" id="btn-studio-add-card">
+        + Add Card
+      </button>
+      <button type="button" class="studio-action-btn btn-studio-save" id="btn-studio-save">
+        💾 Save Edits
+      </button>
+      <button type="button" class="studio-action-btn btn-studio-exit" id="btn-studio-reset" title="Reset all changes">
+        🔄 Reset
+      </button>
+      <button type="button" class="studio-action-btn btn-studio-exit" id="btn-studio-exit" title="Exit Editor">
+        ✕ Exit
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- ==========================================================================
+       4-DIGIT PIN AUTHENTICATION SECURITY GATEWAY MODAL
+       Triggered upon 3 consecutive clicks on the CyberShield Logo
+       ========================================================================== -->
+  <div id="cyber-pin-modal" class="cyber-pin-overlay" role="dialog" aria-modal="true" aria-labelledby="pin-modal-title">
+    <div class="cyber-pin-dialog" id="cyber-pin-dialog">
+      <button type="button" class="pin-close-btn" id="pin-modal-close" aria-label="Cancel Authentication">✕</button>
+      
+      <div class="pin-shield-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+
+      <div class="pin-modal-title" id="pin-modal-title">SECURITY GATEWAY</div>
+      <div class="pin-modal-subtitle">
+        Enter 4-Digit Administrator Access PIN to unlock Website Editor
+      </div>
+
+      <div class="pin-inputs-container" id="pin-inputs-row">
+        <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-idx="0" autocomplete="off">
+        <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-idx="1" autocomplete="off">
+        <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-idx="2" autocomplete="off">
+        <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-idx="3" autocomplete="off">
+      </div>
+
+      <div class="pin-feedback-msg" id="pin-feedback">
+        Default Access PIN: <strong style="color: #ffd700;">2026</strong> (or 1337)
+      </div>
+
+      <div class="pin-dialog-actions">
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-pin-cancel">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-pin-submit">Authenticate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/main.js"></script>
+  <script src="js/password-checker.js"></script>
+  <script src="js/phishing-simulator.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/editor.js"></script>
+
+</body>
+</html>

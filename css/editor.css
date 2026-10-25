@@ -1,0 +1,725 @@
+/* ==========================================================================
+   CYBERSHIELD - WHOLE WEBSITE STUDIO EDITOR MODE
+   Full in-place webpage editing, top studio bar, theme switcher & section controls.
+   No obstructive floating panels!
+   ========================================================================== */
+
+/* Activation Animation on Logo */
+.logo-click-pulse {
+  animation: logoGlitchPulse 0.35s ease;
+}
+
+@keyframes logoGlitchPulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 5px var(--accent-cyan)); }
+  50% { transform: scale(1.22); filter: drop-shadow(0 0 30px var(--accent-green)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--accent-cyan)); }
+}
+
+/* Activation Screen Flash Effect */
+.admin-activation-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, rgba(0, 255, 157, 0.4) 0%, rgba(0, 240, 255, 0.2) 50%, transparent 80%);
+  pointer-events: none;
+  z-index: 999998;
+  animation: flashFade 0.9s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes flashFade {
+  0% { opacity: 1; transform: scale(0.96); }
+  50% { opacity: 0.85; }
+  100% { opacity: 0; transform: scale(1.04); }
+}
+
+/* ==========================================================================
+   TOP DOCKED STUDIO EDITOR BAR (SLEEK & NON-INTRUSIVE)
+   ========================================================================== */
+#studio-editor-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 52px;
+  background: rgba(6, 10, 20, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 2px solid var(--accent-cyan);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.25);
+  z-index: 100000;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  font-family: var(--font-body);
+  transform: translateY(-100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#studio-editor-bar.active {
+  display: flex;
+  transform: translateY(0);
+}
+
+/* Adjust page layout when studio mode is active */
+body.studio-editor-active {
+  padding-top: 52px;
+}
+
+body.studio-editor-active .navbar {
+  top: 52px;
+}
+
+/* Device Mode Switcher (PC vs. Mobile View) */
+.studio-device-toggle-group {
+  display: flex;
+  align-items: center;
+  background: rgba(10, 8, 4, 0.9);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  border-radius: var(--radius-sm);
+  padding: 0.2rem;
+  gap: 0.25rem;
+}
+
+.studio-device-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-subheading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.65rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.studio-device-btn:hover {
+  color: #fff;
+}
+
+.studio-device-btn.active {
+  background: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.35);
+}
+
+/* ==========================================================================
+   SIMULATED MOBILE VIEWPORT IN WEBSITE EDITOR
+   ========================================================================== */
+body.preview-mode-mobile {
+  background-color: #030201 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.preview-mode-mobile #website-viewport-wrapper {
+  width: 100% !important;
+  max-width: 412px !important;
+  margin: 1.5rem auto 4rem auto !important;
+  background: #080603 !important;
+  border: 10px solid #1a160d !important;
+  border-radius: 42px !important;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5), 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(255, 215, 0, 0.15) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Smartphone Dynamic Island Notch */
+body.preview-mode-mobile #website-viewport-wrapper::before {
+  content: '';
+  position: sticky;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95px;
+  height: 22px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 999;
+  display: block;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  margin: 0 auto -22px auto;
+}
+
+body.preview-mode-mobile .navbar {
+  position: sticky !important;
+  top: 0 !important;
+  width: 100% !important;
+}
+
+/* Mobile Preview Mode - Apply All Mobile Optimizations */
+body.preview-mode-mobile .container {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+body.preview-mode-mobile .hero-cta-group {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  gap: 0.85rem !important;
+}
+
+body.preview-mode-mobile .hero-cta-group .btn {
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+body.preview-mode-mobile .simulator-verdict-bar {
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 1rem !important;
+}
+
+body.preview-mode-mobile .simulator-verdict-bar .verdict-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  gap: 0.75rem !important;
+}
+
+body.preview-mode-mobile .simulator-verdict-bar .btn {
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+body.preview-mode-mobile .quiz-results-actions,
+body.preview-mode-mobile .quiz-results-card div[style*="display: flex"] {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  gap: 0.75rem !important;
+  align-items: stretch !important;
+}
+
+body.preview-mode-mobile .quiz-results-card .btn {
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+body.preview-mode-mobile .hero-grid,
+body.preview-mode-mobile .stats-grid,
+body.preview-mode-mobile .importance-grid,
+body.preview-mode-mobile .threat-cards-grid,
+body.preview-mode-mobile .password-checker-layout,
+body.preview-mode-mobile .dashboard-grid,
+body.preview-mode-mobile .resources-grid,
+body.preview-mode-mobile .contact-layout,
+body.preview-mode-mobile .footer-top {
+  grid-template-columns: 1fr !important;
+}
+
+body.preview-mode-mobile .col-12,
+body.preview-mode-mobile .col-8,
+body.preview-mode-mobile .col-6,
+body.preview-mode-mobile .col-4 {
+  grid-column: span 1 !important;
+}
+
+body.preview-mode-mobile .shield-container {
+  width: 240px !important;
+  height: 240px !important;
+  margin: 1rem auto !important;
+}
+
+body.preview-mode-mobile .cyber-shield-badge {
+  width: 110px !important;
+  height: 135px !important;
+}
+
+body.preview-mode-mobile .floating-tag {
+  display: none !important;
+}
+
+body.preview-mode-mobile .hero-headline {
+  font-size: 2.1rem !important;
+  line-height: 1.2 !important;
+}
+
+body.preview-mode-mobile .section-title {
+  font-size: 1.85rem !important;
+}
+
+body.preview-mode-mobile .checklist-grid {
+  grid-template-columns: 1fr !important;
+}
+
+/* Studio Left Controls */
+.studio-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.studio-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(0, 255, 157, 0.12);
+  border: 1px solid var(--accent-green);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-green);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.studio-tools-group {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.studio-tool-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 0.82rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.studio-tool-btn:hover {
+  background: rgba(0, 240, 255, 0.15);
+  color: var(--accent-cyan);
+}
+
+.studio-font-select {
+  background: #050811;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-family: var(--font-subheading);
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Studio Center: THEME COLOR SYSTEM */
+.studio-bar-center {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.studio-theme-label {
+  font-family: var(--font-subheading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.studio-themes-list {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.theme-color-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  font-family: var(--font-subheading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.theme-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.theme-color-pill:hover,
+.theme-color-pill.active {
+  border-color: var(--accent-cyan);
+  color: #ffffff;
+  background: rgba(0, 240, 255, 0.15);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+.custom-color-picker-wrap {
+  display: flex;
+  align-items: center;
+  margin-left: 0.25rem;
+}
+
+.custom-color-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.custom-color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.custom-color-input::-webkit-color-swatch {
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+
+/* Studio Right Controls */
+.studio-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.studio-action-btn {
+  font-family: var(--font-subheading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all var(--transition-fast);
+  border: none;
+}
+
+.btn-studio-save {
+  background: linear-gradient(135deg, var(--accent-cyan), #00b4d8);
+  color: #050811;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+}
+
+.btn-studio-save:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.7);
+}
+
+.btn-studio-add {
+  background: rgba(0, 255, 157, 0.12);
+  border: 1px solid var(--border-green);
+  color: var(--accent-green);
+}
+
+.btn-studio-add:hover {
+  background: var(--accent-green);
+  color: #050811;
+}
+
+.btn-studio-exit {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-secondary);
+}
+
+.btn-studio-exit:hover {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+/* ==========================================================================
+   WHOLE WEBPAGE IN-PLACE DIRECT EDITING STYLES
+   ========================================================================== */
+body.studio-editor-active [contenteditable="true"] {
+  outline: 1.5px dashed var(--accent-cyan) !important;
+  outline-offset: 3px;
+  cursor: text !important;
+  transition: outline 0.2s, background-color 0.2s;
+  border-radius: 2px;
+}
+
+body.studio-editor-active [contenteditable="true"]:hover {
+  background-color: rgba(0, 240, 255, 0.06);
+  outline-color: var(--accent-green) !important;
+}
+
+body.studio-editor-active [contenteditable="true"]:focus {
+  outline: 2px solid var(--accent-green) !important;
+  background-color: rgba(0, 255, 157, 0.08);
+}
+
+/* In-place Section Action Controls on Hover */
+.studio-section-wrapper {
+  position: relative;
+}
+
+.studio-section-controls {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(8, 12, 24, 0.95);
+  border: 1px solid var(--accent-cyan);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.5rem;
+  z-index: 50;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+body.studio-editor-active section:hover .studio-section-controls {
+  display: flex;
+}
+
+.sec-ctrl-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-family: var(--font-subheading);
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sec-ctrl-btn:hover {
+  background: rgba(0, 240, 255, 0.2);
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+/* Inline Graphic Changer Quick Chip */
+.inline-graphic-chip {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(8, 12, 24, 0.95);
+  border: 1.5px solid var(--accent-green);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.75rem;
+  z-index: 60;
+  box-shadow: 0 4px 20px rgba(0, 255, 157, 0.3);
+  white-space: nowrap;
+}
+
+body.studio-editor-active .hero-visual:hover .inline-graphic-chip {
+  display: flex;
+}
+
+.graphic-chip-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-subheading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  transition: all var(--transition-fast);
+}
+
+.graphic-chip-btn:hover,
+.graphic-chip-btn.active {
+  color: var(--accent-green);
+  background: rgba(0, 255, 157, 0.15);
+}
+
+/* ==========================================================================
+   4-DIGIT PIN AUTHENTICATION SECURITY GATEWAY MODAL
+   ========================================================================== */
+.cyber-pin-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(4, 3, 2, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 1000000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: pinFadeIn 0.25s ease;
+}
+
+.cyber-pin-overlay.active {
+  display: flex;
+}
+
+@keyframes pinFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cyber-pin-dialog {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(14, 11, 6, 0.96);
+  border: 1.5px solid #ffd700;
+  border-radius: var(--radius-md);
+  padding: 2.25rem 2rem;
+  box-shadow: 0 0 45px rgba(255, 215, 0, 0.35), 0 20px 50px rgba(0, 0, 0, 0.9);
+  text-align: center;
+  position: relative;
+  animation: pinScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pinScaleUp {
+  from { opacity: 0; transform: scale(0.92) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.pin-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.pin-close-btn:hover {
+  color: #ffd700;
+}
+
+.pin-shield-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem auto;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+}
+
+.pin-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.pin-modal-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-bottom: 1.75rem;
+}
+
+.pin-inputs-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.pin-box {
+  width: 54px;
+  height: 60px;
+  background: rgba(6, 4, 2, 0.95);
+  border: 1.5px solid rgba(255, 215, 0, 0.35);
+  border-radius: var(--radius-sm);
+  color: #ffd700;
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 800;
+  text-align: center;
+  outline: none;
+  transition: all var(--transition-fast);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.pin-box:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.5), inset 0 0 10px rgba(255, 215, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.pin-box.filled {
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.08);
+}
+
+.pin-dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pin-feedback-msg {
+  font-size: 0.82rem;
+  margin-bottom: 1.25rem;
+  color: var(--text-muted);
+  min-height: 20px;
+  font-family: var(--font-subheading);
+  letter-spacing: 0.03em;
+}
+
+.pin-feedback-msg.error {
+  color: #ef4444 !important;
+}
+
+.pin-feedback-msg.success {
+  color: #ffd700 !important;
+  font-weight: 700;
+}
+
+/* Shake Animation on Wrong PIN */
+.pin-shake {
+  animation: shakeDialog 0.45s ease-in-out;
+}
+
+@keyframes shakeDialog {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
